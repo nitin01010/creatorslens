@@ -1,5 +1,5 @@
 name: Deployment Workflow
-'on':
+on:
   push:
     branches:
       - main
@@ -12,4 +12,4 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build Vite App
-        run: npm run start
+        run: npm run build  # Use "build" instead of "start" for production
