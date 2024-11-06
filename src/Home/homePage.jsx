@@ -67,14 +67,14 @@ const HomePage = () => {
                             <b className=" text-[#0075FF]">Platform</b>
                         </h1>
                         <p>CreatorsLens.com helps creators grow <br /> with analytics, insights, and AI <br /> suggestions</p>
-                        <button className=" w-[181px] shadow-2xl h-[60px] rounded-[10px] bg-[#3500FC]">Get Started</button>
+                        <button className="  w-[181px] shadow-2xl h-[60px] rounded-[10px] bg-[#3500FC]">Get Started</button>
                     </div>
                     <img src={ AnimationGFI } className=" w-[100%] lg:w-[60%] -mt-20" alt="Gif" />
                 </div>
 
                 <div className=" flex flex-col gap-8">
                     <p className=" uppercase text-[#00FCDB] text-center">WHAT WE DO</p>
-                    <h1 className=" text-center text-3xl leading-[3rem] font-bold"><b className="text-[#00FCDB]">CreatorsLens</b> helps creators optimize <br /> social media growth with analytics and <br /> AI.</h1>
+                    <h1 className=" text-center text-2xl leading-[2rem]  md:text-3xl  md:leading-[3rem] font-bold"><b className="text-[#00FCDB]">CreatorsLens</b> helps creators optimize <br /> social media growth with analytics and <br /> AI.</h1>
                 </div>
                 <br />
                 <div className="py-5 w-full">
@@ -115,20 +115,20 @@ const HomePage = () => {
                     <h1 className=" text-3xl font-bold text-center mt-4">AI-Powered suggestions</h1>
                     <br />
                     <br />
-                    <div className=" grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-20    p-2 w-[60%] m-auto">
-                        <div className=" flex flex-col   justify-center bg-[#000000] rounded-[10px] p-2 w-[301px] h-[307px]">
+                    <div className=" grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-20    p-2 w-[100%]  md:w-[60%] m-auto">
+                        <div className=" flex flex-col   justify-center bg-[#000000] rounded-[10px] p-2 w-[100%]  md:w-[301px] h-[307px]">
                             <HiOutlineLightBulb color="#00FCDB" size={ 30 } className=" m-auto mb-2 -mt-10 " />
                             <p className=" text-center text-2xl font-bold">Creativity</p>
                             <p className=" text-gray-400 mt-3 text-center">Adipiscing elit, sed do eiusmod
                                 labore dolore magna aliqua.</p>
                         </div>
-                        <div className=" flex flex-col   justify-center bg-[#000000] rounded-[10px] p-2 w-[301px] h-[307px]">
+                        <div className=" flex flex-col   justify-center bg-[#000000] rounded-[10px] p-2 w-[100%]  md:w-[301px] h-[307px]">
                             <HiOutlineLightBulb color="#00FCDB" size={ 30 } className=" m-auto mb-2 -mt-10 " />
                             <p className=" text-center text-2xl font-bold">AI suggestions</p>
                             <p className=" text-gray-400 mt-3 text-center">Adipiscing elit, sed do eiusmod
                                 labore dolore magna aliqua.</p>
                         </div>
-                        <div className=" flex flex-col   justify-center bg-[#000000] rounded-[10px] p-2 w-[301px] h-[307px]">
+                        <div className=" flex flex-col   justify-center bg-[#000000] rounded-[10px] p-2 w-[100%] md:w-[301px] h-[307px]">
                             <HiOutlineLightBulb color="#00FCDB" size={ 30 } className=" m-auto mb-2 -mt-10 " />
                             <p className=" text-center text-2xl font-bold">Earn More</p>
                             <p className=" text-gray-400 mt-3 text-center">Adipiscing elit, sed do eiusmod
@@ -158,7 +158,7 @@ const HomePage = () => {
                                 <p className="flex items-center"><FaCheck className="text-green-500 mr-3" />Creativity suggestions</p>
                                 <p className="flex items-center"><FaCheck className="text-green-500 mr-3" />Earn More</p>
                             </div>
-                            <button className="w-[181px] shadow-2xl h-[60px] mt-6 rounded-[10px] bg-[#3500FC] text-white text-xl font-bold hover:bg-[#4F5BD5] transition-colors duration-300">
+                            <button className="animate-shake animate-infinite animate-duration-[4000ms] animate-ease-linear w-[181px] shadow-2xl h-[60px] mt-6 rounded-[10px] bg-[#3500FC] text-white text-xl font-bold hover:bg-[#4F5BD5] transition-colors duration-300">
                                 Get Started
                             </button>
                         </div>
@@ -171,13 +171,13 @@ const HomePage = () => {
                 <div className="bg-black  w-[95%] m-auto rounded-[10px]  ">
                     <iframe
                         width="100%"
-                        height="600"
+                        // height="600"
                         src="https://www.youtube.com/embed/a5QXsFwQlCo?si=0BCphkg8JIGEJMwR"
                         title="YouTube video player"
                         frameBorder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className=" rounded-[10px]"
+                        className=" rounded-[10px] h-[500px]  md:h-[600px]"
                     />
                 </div>
 
@@ -209,11 +209,11 @@ const HomePage = () => {
                 </div>
                 <p className=" font-bold text-center mb-4 text-2xl">Our <big className=" text-[#3500FC]">Parterners</big></p>
 
-                <div className="Hidden w-[95%] flex gap-20 justify-center items-center  overflow-x-scroll md:w-[70%] p-4 m-auto ">
-                    <img src={ youtube } className="object-cover h-[60px]" />
-                    <img src={ snapchat } className="object-cover h-[60px]" />
-                    <img src={ facebook } className="object-cover h-[60px]" />
-                    <img src={ instagram } className="object-cover h-[60px]" />
+                <div className="Hidden w-[95%] flex gap-20 justify-center items-center   overflow-x-scroll md:w-[70%] p-4 m-auto ">
+                    <img src={ youtube } className="object-cover animate-jump animate-infinite animate-duration-[3000ms] animate-ease-linear ml-56 md:ml-0  h-[60px]" />
+                    <img src={ snapchat } className="object-cover animate-jump animate-infinite animate-duration-[3000ms] animate-ease-linear  h-[60px]" />
+                    <img src={ facebook } className="object-cover animate-jump animate-infinite animate-duration-[3000ms] animate-ease-linear  h-[60px]" />
+                    <img src={ instagram } className="object-cover animate-jump animate-infinite animate-duration-[3000ms] animate-ease-linear  h-[60px]" />
                 </div>
 
                 <br /> <br />
