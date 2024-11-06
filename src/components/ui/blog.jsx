@@ -1,3 +1,7 @@
+import { Space } from 'antd';
+import { CommentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar } from "antd";
+import { format } from 'date-fns';
 
 const Blog = () => {
     const blogPosts = [
@@ -39,16 +43,47 @@ const Blog = () => {
         },
     ];
 
+    // Sort blog posts by date (newest first) and get the latest three
+    const latestPosts = blogPosts
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 3);
+
     return (
-        <div className="max-w-6xl mx-auto p-6">
-            <h1 className="text-3xl font-bold text-center mb-8">Latest Blog Posts</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                { blogPosts.map((post) => (
-                    <div key={ post.id } className="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
-                        <div className="p-6">
-                            <h2 className="text-xl font-semibold mb-2">{ post.title }</h2>
-                            <p className="text-gray-600 mb-4">{ post.excerpt }</p>
-                            <p className="text-gray-500 text-sm">{ post.date }</p>
+        <div className=' bg-[#1a1a1a] py-2 p-2 text-center '>
+            <h1 className=" text-2xl font-bold text-white mt-5">Latest Updates</h1>
+            <div className="flex bg-[#1a1a1a] py-[70px] flex-wrap justify-center gap-8">
+                { latestPosts.map((post) => (
+                    <div
+                        key={ post.id }
+                        className="bg-black rounded-lg overflow-hidden shadow-md transform transition duration-300 hover:scale-105"
+                        style={ { minWidth: "320px", maxWidth: "360px", height: "500px" } }
+                    >
+                        <img
+                            src="https://images.unsplash.com/photo-1491472253230-a044054ca35f?q=80&w=1768&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt={ post.title }
+                            className="w-full h-[220px] object-cover"
+                        />
+                        <div className="p-5">
+                            <h3 className="text-white text-xl font-semibold mb-2">
+                                { post.title }
+                            </h3>
+                            <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                                { post.excerpt }
+                            </p>
+                            <div className="flex items-center text-gray-400 text-sm mb-4">
+                                <Avatar icon={ <UserOutlined /> } className="mr-2" />
+                                <span>Caroline Forsey</span>
+                            </div>
+                            <Space className="text-gray-400 text-xs">
+                                <span className="flex items-center">
+                                    <CalendarOutlined className="mr-1" />
+                                    { format(new Date(post.date), 'MMMM dd, yyyy') }
+                                </span>
+                                <span className="flex items-center ml-4">
+                                    <CommentOutlined className="mr-1" />
+                                    0 Comments
+                                </span>
+                            </Space>
                         </div>
                     </div>
                 )) }

@@ -3,7 +3,6 @@ import HomePage from "./homePage";
 import Header from "../components/ui/header";
 import Footer from "../components/ui/footer";
 import Blog from "../components/ui/blog";
-import Pricing from "../components/ui/pricing";
 import Signup from "../components/ui/signup";
 import Login from "../components/ui/login";
 import Dashboard from "../components/Private/dashboard";
@@ -17,12 +16,9 @@ const App = () => {
         <div>
             <Header />
             <Routes>
-                <Route path="/" element={ <HomePage /> } />
-                <Route path="blogs" element={ <Blog /> } />
-                {/* <Route path="signup" element={ <Signup /> } /> */ }
-                {/* <Route path="login" element={ <Login /> } /> */ }
-                <Route path="pricing" element={ <Pricing /> } />
                 <Route element={ <PublicRoute /> }>
+                    <Route path="/" element={ <HomePage /> } />
+                    <Route path="blogs" element={ <Blog /> } />
                     <Route path="signup" element={ <Signup /> } />
                     <Route path="login" element={ <Login /> } />
                 </Route>

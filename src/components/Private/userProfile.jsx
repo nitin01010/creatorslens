@@ -22,8 +22,8 @@ const UserProfile = () => {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-50">
-            <div className="flex flex-col items-center p-8 w-full max-w-md mx-4 md:mx-auto rounded-lg shadow-lg bg-white border border-gray-200 sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] transition-shadow duration-300 hover:shadow-xl">
+        <div className="flex justify-center text-white items-center h-screen bg-[#0D0D0D]">
+            <div className="flex flex-col items-center p-8 w-full max-w-md mx-4 md:mx-auto rounded-lg shadow-lg bg-black   sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] transition-shadow duration-300 hover:shadow-xl">
                 { isAuthenticated && userData ? (
                     <div className="flex flex-col items-center w-full text-center">
                         <div className="relative w-32 h-32 rounded-full mb-6 shadow-inner">
@@ -33,10 +33,10 @@ const UserProfile = () => {
                                 className="w-full h-full object-cover rounded-full shadow-lg"
                             />
                         </div>
-                        <h3 className="text-2xl font-semibold text-gray-800 mb-1">
+                        <h3 className="text-2xl font-semibold text-white mb-1">
                             { userData.name }
                         </h3>
-                        <p className="text-gray-500 text-lg flex items-center justify-center gap-2">
+                        <p className="text-white text-lg flex items-center justify-center gap-2">
                             <FiMail size={ 18 } /> { userData.email }
                         </p>
                         <button
