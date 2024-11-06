@@ -8,7 +8,7 @@ const Signup = () => {
 
     return (
         <div className="flex items-center justify-center py-[180px] bg-[#0D0D0D]">
-            <div className="shadow-lg bg-black rounded-lg p-10 max-w-md w-full text-white">
+            <div className="shadow-lg bg-black m-3 -mt-20 rounded-lg p-10 max-w-md w-full text-white">
                 <div className="flex flex-col items-center mb-6">
                     <img
                         src={ Google } // Replace with your logo URL or remove if not needed

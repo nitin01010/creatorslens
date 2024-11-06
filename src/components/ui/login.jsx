@@ -8,14 +8,14 @@ const Login = () => {
 
     return (
         <div className="flex items-center justify-center py-[180px] bg-[#0D0D0D]">
-            <div className="shadow-lg bg-black rounded-lg p-10 max-w-md w-full text-white">
+            <div className="shadow-lg bg-black m-3 -mt-20 rounded-lg p-10 max-w-md w-full text-white">
                 <div className="flex flex-col items-center mb-6">
                     <img
                         src={ Google } // Replace with your logo URL or remove if not needed
                         alt="Logo"
                         className="w-16 h-16 mb-4"
                     />
-                    <h2 className="text-3xl font-bold mb-2">Login to Your Account</h2>
+                    <h2 className="text-3xl font-bold text-center md:text-balance  mb-8">Login to Your Account</h2>
                     <p className="text-gray-400">Click below to login with Google</p>
                 </div>
 

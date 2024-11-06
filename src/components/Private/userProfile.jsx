@@ -22,8 +22,8 @@ const UserProfile = () => {
     }
 
     return (
-        <div className="flex justify-center text-white items-center h-screen bg-[#0D0D0D]">
-            <div className="flex flex-col items-center p-8 w-full max-w-md mx-4 md:mx-auto rounded-lg shadow-lg bg-black   sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] transition-shadow duration-300 hover:shadow-xl">
+        <div className="flex justify-center text-white items-center  h-screen bg-[#0D0D0D]">
+            <div className="flex flex-col items-center m-3 -mt-20 p-8 w-full max-w-md mx-4 md:mx-auto rounded-lg shadow-lg bg-black   sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] transition-shadow duration-300 hover:shadow-xl">
                 { isAuthenticated && userData ? (
                     <div className="flex flex-col items-center w-full text-center">
                         <div className="relative w-32 h-32 rounded-full mb-6 shadow-inner">

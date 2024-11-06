@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { CiLock } from "react-icons/ci"; // Import the lock icon
 
+import { PacmanLoader } from "react-spinners";
+
+
 const Header = () => {
   const { isAuthenticated, isLoading, logout, user } = useAuth0();
   const [toggle, setToggle] = useState(false);
@@ -33,8 +36,8 @@ const Header = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-[75px] bg-white shadow-md">
-        <p>Loading...</p>
+      <div className="flex bg-black h-[75px] relative justify-center items-center px-3 md:px-10">
+        <PacmanLoader color="#ffffff" size={ 15 } />
       </div>
     );
   }
@@ -69,19 +72,13 @@ const Header = () => {
         { !hasToken && (
           <div className='flex gap-3'>
             <div
-              className='flex text-white border-[#FFFFFF] mr-4 justify-center items-center gap-3 font-bold w-[127px] h-[48px] rounded-[10px] border capitalize hidden lg:block cursor-pointer'
+              className='flex text-white border-[#FFFFFF] mr-4 justify-center items-center gap-3 font-bold w-[127px] h-[48px] rounded-[10px] border capitalize hidden lg:block lg:flex cursor-pointer'
               onClick={ () => navigate('/signup') }
             >
               <CiLock size={ 20 } color='white' />
               <p>Signup</p>
             </div>
-            <div
-              className='flex text-white border-[#FFFFFF] mr-4 justify-center items-center gap-3 font-bold w-[127px] h-[48px] rounded-[10px] border capitalize hidden lg:block cursor-pointer'
-              onClick={ () => navigate('/login') }
-            >
-              <CiLock size={ 20 } color='white' />
-              <p>Login</p>
-            </div>
+
           </div>
         ) }
 
