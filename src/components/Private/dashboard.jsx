@@ -129,73 +129,73 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="bg-gray-50 p-6 min-h-screen flex flex-col items-center">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white w-full rounded-lg p-6 mb-8 shadow-lg">
+        <div className="bg-[#0D0D0D] text-white p-6 min-h-screen flex flex-col items-center">
+            <div className="bg-gradient-to-r bg-black text-white w-[100%]  md:w-[60%] rounded-lg p-6 mb-8 shadow-lg">
                 <div className="text-center">
-                    <h1 className="text-3xl font-semibold mb-4">Welcome, {user.name}</h1>
+                    <h1 className="text-3xl font-semibold mb-4">Welcome, { user.name }</h1>
                     <div className="flex justify-center space-x-8 text-lg">
                         <div className="text-center">
-                            <Skeleton active loading={loading}>
-                                <div className="font-bold text-xl">{totalViews}</div>
+                            <Skeleton active loading={ loading } paragraph={ { rows: 1 } } title={ false }>
+                                <div className="font-bold text-xl">{ totalViews }</div>
                             </Skeleton>
-                            <div className="text-sm text-gray-200">Total Views</div>
+                            <div className="text-sm text-gray-400">Total Views</div>
                         </div>
                         <div className="text-center">
-                            <Skeleton active loading={loading}>
-                                <div className="font-bold text-xl">{totalLikes}</div>
+                            <Skeleton active loading={ loading } paragraph={ { rows: 1 } } title={ false }>
+                                <div className="font-bold text-xl">{ totalLikes }</div>
                             </Skeleton>
-                            <div className="text-sm text-gray-200">Total Likes</div>
+                            <div className="text-sm text-gray-400">Total Likes</div>
                         </div>
                         <div className="text-center">
-                            <Skeleton active loading={loading}>
-                                <div className="font-bold text-xl">{subscriberCount}</div>
+                            <Skeleton active loading={ loading } paragraph={ { rows: 1 } } title={ false }>
+                                <div className="font-bold text-xl">{ subscriberCount }</div>
                             </Skeleton>
-                            <div className="text-sm text-gray-200">Subscribers</div>
+                            <div className="text-sm text-gray-400">Subscribers</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <button
-                className={`${isYouTubeConnected ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600'} text-white font-semibold py-3 px-6 rounded-xl shadow-xl transition-all transform hover:scale-105 mt-4`}
-                onClick={handleYouTubeConnect}
-                disabled={isYouTubeConnected}
+                className={ `${isYouTubeConnected ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'} text-white font-semibold py-3 px-6 rounded-xl shadow-xl transition-all transform hover:scale-105 mt-4` }
+                onClick={ handleYouTubeConnect }
+                disabled={ isYouTubeConnected }
             >
-                {isYouTubeConnected ? 'Connected to YouTube' : 'Connect YouTube'}
+                { isYouTubeConnected ? 'Connected to YouTube' : 'Connect YouTube' }
             </button>
 
-            {youtubeMessage && (
-                <p className="text-center mt-6 text-lg text-gray-700">{youtubeMessage}</p>
-            )}
+            { youtubeMessage && (
+                <p className="text-center mt-6 text-lg text-gray-200">{ youtubeMessage }</p>
+            ) }
 
-            {loading ? (
-                <Skeleton active paragraph={{ rows: 4 }} />
+            { loading ? (
+                <Skeleton active paragraph={ { rows: 4 } } />
             ) : (
                 <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {videoList.map((video) => (
-                        <div key={video.id} className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300">
-                            <img className="rounded-lg mb-4 w-full" src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} />
-                            <h3 className="text-xl font-semibold text-gray-800">{video.snippet.title}</h3>
-                            <p className="text-gray-600 mt-2">Views: {video.statistics.viewCount}</p>
-                            <p className="text-gray-600">Likes: {video.statistics.likeCount}</p>
+                    { videoList.map((video) => (
+                        <div key={ video.id } className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+                            <img className="rounded-lg mb-4 w-full" src={ video.snippet.thumbnails.medium.url } alt={ video.snippet.title } />
+                            <h3 className="text-xl font-semibold text-gray-900">{ video.snippet.title }</h3>
+                            <p className="text-gray-600 mt-2">Views: { video.statistics.viewCount }</p>
+                            <p className="text-gray-600">Likes: { video.statistics.likeCount }</p>
                             <div className="mt-4 flex space-x-4">
                                 <button
                                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
-                                    onClick={() => window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank')}
+                                    onClick={ () => window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank') }
                                 >
                                     View Video
                                 </button>
                                 <button
                                     className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
-                                    onClick={() => handleAISuggestions(video)}
+                                    onClick={ () => handleAISuggestions(video) }
                                 >
                                     AI Suggestions
                                 </button>
                             </div>
                         </div>
-                    ))}
+                    )) }
                 </div>
-            )}
+            ) }
         </div>
     );
 };
