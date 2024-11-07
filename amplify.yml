@@ -8,9 +8,9 @@ frontend:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: /build
+    baseDirectory: dist  # Use dist, not /build
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
+      - node_modules/**/* 
