@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import Google from '../../assite/google.png';
+import ModalComponents from './modal';
 
 const Login = () => {
+    const [modalIndex, setmodalIndex] = useState(false);
     const { loginWithRedirect } = useAuth0();
     const navigate = useNavigate(); // Hook to navigate between pages
 
@@ -20,7 +23,7 @@ const Login = () => {
                 </div>
 
                 <button
-                    onClick={ () => loginWithRedirect() }
+                    onClick={ () => setmodalIndex(!modalIndex) }
                     className="flex items-center justify-center w-full bg-blue-700 text-white font-semibold py-2 rounded hover:text-white transition duration-200 mb-6"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 48 48">
@@ -44,6 +47,10 @@ const Login = () => {
                     </p>
                 </div>
             </div>
+
+            {
+                modalIndex ? <ModalComponents data={ modalIndex } /> : null
+            }
         </div>
     );
 };

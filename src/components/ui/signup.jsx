@@ -1,11 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import Google from '../../assite/google.png';
+import { useState } from "react";
+import ModalComponents from "./modal";
 
 const Signup = () => {
+    const [modalIndex, setmodalIndex] = useState(false);
     const { loginWithRedirect } = useAuth0();
     const navigate = useNavigate();
-
     return (
         <div className="flex items-center justify-center py-[180px] bg-[#0D0D0D]">
             <div className="shadow-lg bg-black m-3 -mt-20 rounded-lg p-10 max-w-md w-full text-white">
@@ -20,7 +22,7 @@ const Signup = () => {
                 </div>
 
                 <button
-                    onClick={ () => loginWithRedirect() }
+                    onClick={ () => setmodalIndex(!modalIndex) }
                     className="flex items-center justify-center w-full bg-blue-600 text-white font-semibold py-3 rounded-md hover:bg-blue-700 transition duration-200 mb-6 shadow-lg"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 48 48">
@@ -44,6 +46,10 @@ const Signup = () => {
                     </p>
                 </div>
             </div>
+            {
+             modalIndex ? <ModalComponents data={modalIndex} /> : null 
+            }
+            
         </div>
     );
 };

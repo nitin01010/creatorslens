@@ -2,48 +2,39 @@ import { Space } from 'antd';
 import { CommentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar } from "antd";
 import { format } from 'date-fns';
+import maxresdefault from '../../assite/maxresdefault.jpg';
+import maxresdefault1 from '../../assite/maxresdefault (1).jpg';
+import logonewchares from '../../assite/logonewchares.jpg';
+import ModalComponents from './modal';
+import { useState } from 'react';
 
 const Blog = () => {
+    const [modalIndex, setmodalIndex] = useState(false);
+
     const blogPosts = [
         {
             id: 1,
-            title: 'Boost Your Social Media Growth with Data Analytics',
-            excerpt: 'Discover how leveraging data analytics can enhance your social media strategy and drive engagement...',
-            date: 'November 1, 2024',
+            title: 'Unlock Your YouTube Potential with AI Suggestions',
+            excerpt: 'Learn how AI-driven suggestions can help you optimize your YouTube content for better engagement and reach...',
+            date: 'November 8, 2024',
+            image: maxresdefault,
         },
         {
             id: 2,
-            title: 'AI-Powered Video Suggestions: A Game Changer for Creators',
-            excerpt: 'Explore the benefits of AI-driven video suggestions and how they can help you create more engaging content...',
-            date: 'October 15, 2024',
+            title: 'Maximize Earnings from YouTube with Data Insights',
+            excerpt: 'Discover how data analytics can boost your YouTube earnings by improving content strategy and audience targeting...',
+            date: 'October 25, 2024',
+            image: maxresdefault1,
         },
         {
             id: 3,
-            title: 'Timing Your Posts for Maximum Engagement',
-            excerpt: 'Learn the best times to post on various social media platforms to reach your audience effectively...',
-            date: 'September 30, 2024',
-        },
-        {
-            id: 4,
-            title: 'Monetizing Your Content: Strategies for Success',
-            excerpt: 'Uncover effective strategies to earn money from your social media content and maximize your revenue...',
-            date: 'August 10, 2024',
-        },
-        {
-            id: 5,
-            title: 'The Importance of Consistency in Content Creation',
-            excerpt: 'Understand why consistency is key in social media and how it affects your audience engagement...',
-            date: 'July 20, 2024',
-        },
-        {
-            id: 6,
-            title: 'Using Trends to Drive Your Content Strategy',
-            excerpt: 'Find out how to identify and leverage trending topics to boost your visibility and attract new followers...',
-            date: 'June 15, 2024',
+            title: 'AI-Driven Thumbnails: The Secret to More Clicks',
+            excerpt: 'Find out how AI-generated thumbnails can significantly increase your click-through rates and video views...',
+            date: 'September 18, 2024',
+            image: logonewchares,
         },
     ];
 
-    // Sort blog posts by date (newest first) and get the latest three
     const latestPosts = blogPosts
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 3);
@@ -57,9 +48,10 @@ const Blog = () => {
                         key={ post.id }
                         className="bg-black rounded-lg overflow-hidden shadow-md transform transition duration-300 hover:scale-105"
                         style={ { minWidth: "320px", maxWidth: "360px", height: "500px" } }
+                        onClick={ () => setmodalIndex(!modalIndex) }
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1491472253230-a044054ca35f?q=80&w=1768&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            src={ post.image }
                             alt={ post.title }
                             className="w-full h-[220px] object-cover"
                         />
@@ -81,13 +73,17 @@ const Blog = () => {
                                 </span>
                                 <span className="flex items-center ml-4">
                                     <CommentOutlined className="mr-1" />
-                                    0 Comments
+                                    { Math.floor(Math.random() * 10) } Comments
                                 </span>
                             </Space>
                         </div>
                     </div>
                 )) }
             </div>
+
+            {
+                modalIndex ? <ModalComponents data={ modalIndex } /> : null
+            }
         </div>
     );
 };

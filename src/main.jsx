@@ -7,6 +7,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 
 const domain = import.meta.env.VITE_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -20,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         >
             <BrowserRouter>
                 <App />
+                <ToastContainer />
             </BrowserRouter>
         </Auth0Provider>
     </React.StrictMode>
