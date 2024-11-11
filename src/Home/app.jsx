@@ -14,7 +14,6 @@ import PublicRoute from "../PublicRoute";
 const App = () => {
     return (
         <div>
-            <Header />
             <Routes>
                 <Route element={ <PublicRoute /> }>
                     <Route path="/" element={ <HomePage /> } />

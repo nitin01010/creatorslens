@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
-import { Skeleton } from 'antd';
+import { toast } from 'react-toastify';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { CircleUser, Eye, MailCheck, ThumbsUpIcon, UserCheck, Users } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { useNavigate } from 'react-router-dom';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Progress } from 'antd';
+
 
 const Dashboard = () => {
     const { user } = useAuth0();
+    const { logout } = useAuth0();
     const [youtubeMessage, setYoutubeMessage] = useState('');
     const [videoList, setVideoList] = useState([]);
     const [isYouTubeConnected, setIsYouTubeConnected] = useState(false);
@@ -12,18 +22,22 @@ const Dashboard = () => {
     const [totalViews, setTotalViews] = useState(0);
     const [totalLikes, setTotalLikes] = useState(0);
     const [subscriberCount, setSubscriberCount] = useState(0);
-
-
-    
-    const [loading, setLoading] = useState(true); // To control loading state for videos and stats
+    const [videoCount, SetvideoCount] = useState(0);
+    const [aiSuggestionData, setAiSuggestionData] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCard, setSelectedCard] = useState(null);
+    const navigate = useNavigate();
 
     const GOOGLEAUTH_CLIENT_ID = '1025794377406-lida7mfm7ar8am5tarlntv53chs16409.apps.googleusercontent.com';
     const REDIRECT_URI = 'https://main.d3gmj9r7ojlkud.amplifyapp.com/dashboard';
+    // http://localhost:3000/
     const SCOPE = 'https://www.googleapis.com/auth/youtube.readonly';
 
     const getOAuthURL = () => (
         `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLEAUTH_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}&response_type=token`
     );
+
 
     const handleYouTubeConnect = () => {
         window.location.href = getOAuthURL();
@@ -47,7 +61,7 @@ const Dashboard = () => {
                 headers: { Authorization: `Bearer ${token}` },
                 params: { part: 'snippet,contentDetails,statistics', mine: true },
             });
-
+            SetvideoCount(data?.items[0]?.statistics?.videoCount)
             if (data.items && data.items.length > 0) {
                 const channel = data.items[0];
                 const uploadsPlaylistId = channel.contentDetails.relatedPlaylists.uploads;
@@ -114,91 +128,170 @@ const Dashboard = () => {
             setTotalLikes(totalLikesTemp);
             setVideoList(allVideoDetails);
             setYoutubeMessage('All video data retrieved successfully.');
-            setLoading(false); // Stop loading once data is fetched
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching video details:', error);
             setYoutubeMessage('An error occurred while fetching video details.');
-            setLoading(false); // Stop loading on error
+            setLoading(false);
         }
     };
 
-    const handleAISuggestions = async (video) => {
+    const handleAISuggestions = async (video, idx) => {
         try {
-            alert('Upcoming feature | We are working on this.');
+            let { localized } = video.snippet;
+            let { title, description } = localized;
+            let tags = video.snippet?.tags;
+
+            const response = await axios.post('http://localhost:4000/api/v1/ai/suggestion', {
+                title,
+                description,
+                tags,
+            });
+            const { generated_text } = response?.data?.result;
+            toast.success('AI search completed successfully!');
+            setSelectedCard(idx)
+            setAiSuggestionData(generated_text)
         } catch (error) {
-            console.error('Error handling AI suggestions:', error);
+            toast.error('Failed to complete AI search.');
+            setAiSuggestionData(prevData => ({ ...prevData, [video.id]: null }));
         }
     };
+
+
+    const filteredVideos = videoList.filter((video) =>
+        video.snippet.localized.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
-        <div className="bg-[#0D0D0D] text-white p-6 min-h-screen flex flex-col items-center">
-            <div className="bg-gradient-to-r bg-black text-white w-[100%]  md:w-[60%] rounded-lg p-6 mb-8 shadow-lg">
-                <div className="text-center">
-                    <h1 className="text-3xl font-semibold mb-4">Welcome, { user.name }</h1>
-                    <div className="flex justify-center space-x-8 text-lg">
-                        <div className="text-center">
-                            <Skeleton active loading={ loading } paragraph={ { rows: 1 } } title={ false }>
-                                <div className="font-bold text-xl">{ totalViews }</div>
-                            </Skeleton>
-                            <div className="text-sm text-gray-400">Total Views</div>
-                        </div>
-                        <div className="text-center">
-                            <Skeleton active loading={ loading } paragraph={ { rows: 1 } } title={ false }>
-                                <div className="font-bold text-xl">{ totalLikes }</div>
-                            </Skeleton>
-                            <div className="text-sm text-gray-400">Total Likes</div>
-                        </div>
-                        <div className="text-center">
-                            <Skeleton active loading={ loading } paragraph={ { rows: 1 } } title={ false }>
-                                <div className="font-bold text-xl">{ subscriberCount }</div>
-                            </Skeleton>
-                            <div className="text-sm text-gray-400">Subscribers</div>
-                        </div>
+        <div className=' bg-[#181818]'>
+            <div className=' border border-[#2c2b2b] rounded-t-lg'>
+                <div className='flex  border-b-2 border-[#2c2b2b] rounded-t-lg justify-between items-center px-2 md:px-10 py-4 text-white '>
+                    <div className=' flex gap-16'>
+                        <b>
+                            <h1 className=' text-xl font-bold' onClick={ () => navigate('/dashboard') }> CreatorsLens.com</h1>
+                        </b>
+                        <ul className=' font-semibold text-lg hidden lg:flex gap-6'>
+                            <li className=' hover:text-white ' onClick={ () => navigate('/dashboard') }>Dashborad</li>
+                            <Dialog>
+                                <DialogTrigger asChild className=' -mt-1'>
+                                    <Button >Profile</Button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-[425px] p-5 bg-black text-white">
+                                    <DialogHeader>
+                                        <DialogTitle className=" text-xl">Profile</DialogTitle>
+                                    </DialogHeader>
+                                    <div className="grid gap-4 py-4">
+                                        <img src={ `${user?.picture}` } className=' w-[80px]  rounded-3xl m-auto -mt-10  h-[80px]  ' />
+                                        <p className=' flex gap-3'><CircleUser />{ user?.name }</p>
+                                        <p className=' flex gap-3'><MailCheck />{ user?.email }</p>
+                                        <Button className=" mt-5"><p onClick={ () => logout({ logoutParams: { returnTo: window.location.origin } }) }>Log out</p></Button>
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
+                        </ul>
+                    </div>
+                    <div className=' flex gap-5'>
+                        <Input
+                            className=" bg-[#181818] hidden md:block shadow-lg border border-gray-500 mb-6 text-white w-[100%] lg:w-[350px] xl:w-[300px]"
+                            placeholder="Search videos by title..."
+                            value={ searchQuery }
+                            onChange={ (e) => setSearchQuery(e.target.value) }
+                        />
+
+
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Avatar>
+                                    <AvatarImage src={ `${user?.picture}` } className=" shadow-2xl" />
+                                    <AvatarFallback>CN</AvatarFallback>
+                                </Avatar>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px] border-gray-400 rounded-md p-5 bg-black text-white">
+                                <DialogHeader>
+                                    <DialogTitle className=" text-xl text-start">Profile</DialogTitle>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4">
+                                    <img src={ `${user?.picture}` } className=' shadow-2xl w-[80px]  rounded-3xl m-auto -mt-10  h-[80px]  ' />
+                                    <p className=' flex gap-3'><CircleUser />{ user?.name }</p>
+                                    <p className=' flex gap-3'><MailCheck />{ user?.email }</p>
+                                    <Button className=" mt-5"><p onClick={ () => logout({ logoutParams: { returnTo: window.location.origin } }) }>Log out</p></Button>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+
+                    </div>
+                </div>
+
+                <div className='flex items-center justify-between p-2'>
+                    <p className=' py-6 px-5 md:px-10 text-3xl md:text-4xl font-bold text-white'>Dashboard</p>
+                    <Button className=' py-2 bg-black mr-7 font-semibold hover:bg-black  shadow-xl  transition-all ease-linear  text-center rounded-3xl  md:text-lg text-white' ><p onClick={ () => handleYouTubeConnect() }>{ isYouTubeConnected ? 'Connected' : 'Connect Youtube' }</p></Button>
+                </div>
+
+                <div className='Hidden px-8 py-2 flex  justify-between overflow-x-scroll gap-10'>
+                    <div className=' shadow-2xl w-[300px] min-w-[300px] h-[120px] rounded-[16px] border  border-[#2c2b2b]  flex flex-col gap-2 p-6 '>
+                        <p className=' text-white text-xl font-bold flex items-center justify-between'>Total Subscribe   <UserCheck /></p>
+                        <b><p className=' text-white text-2xl font-bold'>{ subscriberCount }</p></b>
+                    </div>
+                    <div className=' shadow-2xl w-[300px] min-w-[300px] h-[120px] rounded-[16px] border  border-[#2c2b2b]  flex flex-col gap-2 p-6 '>
+                        <p className=' text-white text-xl font-bold flex items-center justify-between'>Total View   <Eye /></p>
+                        <b><p className=' text-white text-2xl font-bold'>{ totalViews }</p></b>
+                    </div>
+                    <div className=' shadow-2xl w-[300px] min-w-[300px] h-[120px] rounded-[16px] border  border-[#2c2b2b]  flex flex-col gap-2 p-6 '>
+                        <p className=' text-white text-xl font-bold flex items-center justify-between'>Total Likes   <ThumbsUpIcon /></p>
+                        <b><p className=' text-white text-2xl font-bold'>{ totalLikes }</p></b>
+                    </div>
+                    <div className=' shadow-2xl w-[300px] min-w-[300px] h-[120px] rounded-[16px] border  border-[#2c2b2b]  flex flex-col gap-2 p-6 '>
+                        <p className=' text-white text-xl font-bold flex items-center justify-between'>Total Video <Users /></p>
+                        <b><p className=' text-white text-2xl font-bold'>{ videoCount } </p></b>
+                    </div>
+                </div>
+
+                <div className=' m-1  mt-14 md:m-8  md:mt-16  border rounded-t-lg border-[#2c2b2b]  flex flex-col justify-between '>
+                    <div className=' flex justify-end p-2 py-4 px-4'>
+                        <Input
+                            className=" bg-[#181818] shadow-lg border border-gray-500 mb-6 text-white w-[100%] lg:w-[350px] xl:w-[300px]"
+                            placeholder="Search videos by title..."
+                            value={ searchQuery }
+                            onChange={ (e) => setSearchQuery(e.target.value) }
+                        />
+                    </div>
+
+                    <div className='  text-white p-1  grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-3  gap-5 m-auto  rounded'>
+                        { filteredVideos.length === 0 ? <p className=' text-gray-500'>No Videos</p> : null }
+                        {
+                            filteredVideos?.map((item, idx) => {
+                                const { title, description } = item?.snippet?.localized;
+                                return (
+                                    <div key={ idx } className=' w-full sm:w-[347px] md:w-[400px] rounded-[8px] shadow-2xl  bg-black  p-2 md:p-4 max-w-[400px]'>
+                                        <img class="object-cover h-48 w-96 rounded-md " src={ item?.snippet?.thumbnails?.high?.url } />
+                                        <div className='  flex gap-4   py-2 mt-2'>
+                                            <div className=' flex gap-2 items-center'>
+                                                <Eye size={ 20 } />
+                                                <p>{ item?.statistics?.viewCount }</p>
+                                            </div>
+                                            <div className=' flex gap-2 items-center'>
+                                                <ThumbsUpIcon size={ 20 } />
+                                                <p>{ item?.statistics?.likeCount }</p>
+                                            </div>
+                                        </div>
+                                        <p className=' text-xl font-bold py-2 mb-2 mt-2'>{ title }</p>
+                                        <div className='mt-3 flex flex-wrap gap-2 '>
+                                            <Button className="hover:bg-white hover:text-black transition-all ease-linear capitalize" onClick={ () => handleAISuggestions(item, idx) }>AI Search</Button>
+                                            <Button onClick={ () => toast.dark('We are Making...') } className="hover:bg-white hover:text-black transition-all ease-linear capitalize">AI generate thumbnail</Button>
+                                            <Button onClick={ () => toast.dark('We are Working...') } className="hover:bg-white hover:text-black transition-all ease-linear capitalize">AI video ideas</Button>
+                                        </div>
+                                        <div>
+                                            { selectedCard === idx && <p className=' mt-5 text-gray-400'>{ aiSuggestionData }</p> }
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+
                     </div>
                 </div>
             </div>
-
-            <button
-                className={ `${isYouTubeConnected ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'} text-white font-semibold py-3 px-6 rounded-xl shadow-xl transition-all transform hover:scale-105 mt-4` }
-                onClick={ handleYouTubeConnect }
-                disabled={ isYouTubeConnected }
-            >
-                { isYouTubeConnected ? 'Connected to YouTube' : 'Connect YouTube' }
-            </button>
-
-            { youtubeMessage && (
-                <p className="text-center mt-6 text-lg text-gray-200">{ youtubeMessage }</p>
-            ) }
-
-            { loading ? (
-                <Skeleton active paragraph={ { rows: 4 } } />
-            ) : (
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    { videoList.map((video) => (
-                        <div key={ video.id } className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300">
-                            <img className="rounded-lg mb-4 w-full" src={ video.snippet.thumbnails.medium.url } alt={ video.snippet.title } />
-                            <h3 className="text-xl font-semibold text-gray-900">{ video.snippet.title }</h3>
-                            <p className="text-gray-600 mt-2">Views: { video.statistics.viewCount }</p>
-                            <p className="text-gray-600">Likes: { video.statistics.likeCount }</p>
-                            <div className="mt-4 flex space-x-4">
-                                <button
-                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
-                                    onClick={ () => window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank') }
-                                >
-                                    View Video
-                                </button>
-                                <button
-                                    className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
-                                    onClick={ () => handleAISuggestions(video) }
-                                >
-                                    AI Suggestions
-                                </button>
-                            </div>
-                        </div>
-                    )) }
-                </div>
-            ) }
-        </div>
+        </div >
     );
 };
 

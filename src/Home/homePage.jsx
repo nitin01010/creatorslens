@@ -33,6 +33,8 @@ import maxresdefault1 from '../assite/maxresdefault (1).jpg';
 import logonewchares from '../assite/logonewchares.jpg';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import Header from '@/components/ui/header';
+import { useNavigate } from 'react-router-dom';
 
 const reviews = [
     {
@@ -133,8 +135,12 @@ const HomePage = () => {
         return () => clearTimeout(timer);
     }, []);
 
+    const navigate = useNavigate()
+
     return (
         <>
+            <Header />
+
             <div className=" bg-[#0D0D0D] text-white py-10">
 
                 <div className="  flex justify-between flex-wrap-reverse md:flex-nowrap gap-2 p-2 w-full  md:w-[80%]  m-auto">
@@ -144,8 +150,7 @@ const HomePage = () => {
                             <b className=" text-[#0075FF]">Platform</b>
                         </h1>
                         <p>CreatorsLens.com helps creators grow <br /> with analytics, insights, and AI <br /> suggestions</p>
-                        <button className="  w-[181px] shadow-2xl h-[60px] rounded-[10px] bg-[#3500FC]" onClick={ () => onOpenModal()
-                        }>Get Started</button>
+                        <button className="  w-[181px] shadow-2xl h-[60px] rounded-[10px] bg-[#3500FC]" onClick={ () => navigate("/signup") }>Get Started</button>
                     </div>
                     <img src={ AnimationGFI } className=" w-[100%] lg:w-[60%] -mt-20" alt="Gif" />
                 </div>
@@ -233,7 +238,7 @@ const HomePage = () => {
                                 <p className="flex items-center"><FaCheck className="text-green-500 mr-3" />Creativity suggestions</p>
                                 <p className="flex items-center"><FaCheck className="text-green-500 mr-3" />Earn More</p>
                             </div>
-                            <button className="animate-shake animate-infinite animate-duration-[4000ms] animate-ease-linear w-[181px] shadow-2xl h-[60px] mt-6 rounded-[10px] bg-[#3500FC] text-white text-xl font-bold hover:bg-[#4F5BD5] transition-colors duration-300" onClick={ () => onOpenModal() } >
+                            <button className=" w-[181px] shadow-2xl h-[60px] mt-6 rounded-[10px] bg-[#3500FC] text-white text-xl font-bold hover:bg-[#4F5BD5] transition-colors duration-300" onClick={ () => onOpenModal() } >
                                 Get Started
                             </button>
                         </div>
