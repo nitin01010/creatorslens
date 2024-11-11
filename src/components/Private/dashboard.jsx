@@ -142,7 +142,7 @@ const Dashboard = () => {
             let { title, description } = localized;
             let tags = video.snippet?.tags;
 
-            const response = await axios.post('http://localhost:4000/api/v1/ai/suggestion', {
+            const response = await axios.post('https://creatorslensbackend.onrender.com/api/v1/ai/suggestion', {
                 title,
                 description,
                 tags,
