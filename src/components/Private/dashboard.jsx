@@ -30,7 +30,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     const GOOGLEAUTH_CLIENT_ID = '1025794377406-lida7mfm7ar8am5tarlntv53chs16409.apps.googleusercontent.com';
-    const REDIRECT_URI = 'https://main.d3gmj9r7ojlkud.amplifyapp.com/dashboard';
+    const REDIRECT_URI = 'https://www.creatorslens.in/dashboard';
     // http://localhost:3000/
     const SCOPE = 'https://www.googleapis.com/auth/youtube.readonly';
 
