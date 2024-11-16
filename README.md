@@ -1,6 +1,6 @@
-# CreatorsLens.com
+# CreatorsLens.in
 
-CreatorsLens.com is a web platform designed to help content creators grow their social media presence by providing analytics, data insights, and AI-driven suggestions for improving their content. This site focuses on enabling creators to understand their audience better and optimize their content strategies across various platforms.
+CreatorsLens.in is a web platform designed to help content creators grow their social media presence by providing analytics, data insights, and AI-driven suggestions for improving their content. This site focuses on enabling creators to understand their audience better and optimize their content strategies across various platforms.
 
 ## Features
 
