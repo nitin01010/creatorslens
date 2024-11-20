@@ -30,8 +30,9 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     const GOOGLEAUTH_CLIENT_ID = '1025794377406-lida7mfm7ar8am5tarlntv53chs16409.apps.googleusercontent.com';
-    const REDIRECT_URI = 'https://www.creatorslens.in/dashboard';
-    // http://localhost:3000/
+
+    const REDIRECT_URI ='https://www.creatorslens.in/dashboard';
+    //'http://localhost:3000'
     const SCOPE = 'https://www.googleapis.com/auth/youtube.readonly';
 
     const getOAuthURL = () => (
@@ -142,7 +143,7 @@ const Dashboard = () => {
             let { title, description } = localized;
             let tags = video.snippet?.tags;
 
-            const response = await axios.post('https://creatorslensbackend.onrender.com/api/v1/ai/suggestion', {
+            const response = await axios.post('https://creatorslensbackend-production.up.railway.app/api/v1/ai/suggestion', {
                 title,
                 description,
                 tags,

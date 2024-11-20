@@ -116,7 +116,7 @@ const HomePage = () => {
         }
 
         try {
-            const response = await axios.post(`https://creatorslensbackend.onrender.com/api/v1/ai/message`, { name, email });
+            const response = await axios.post(`https://creatorslensbackend-production.up.railway.app/api/v1/ai/message`, { name, email });
             toast.success(`Thank you, ${name}! We've received your details.`);
             onCloseModal();
             setName('')
