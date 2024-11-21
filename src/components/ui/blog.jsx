@@ -5,13 +5,9 @@ import { format } from 'date-fns';
 import maxresdefault from '../../assite/maxresdefault.jpg';
 import maxresdefault1 from '../../assite/maxresdefault (1).jpg';
 import logonewchares from '../../assite/logonewchares.jpg';
-import ModalComponents from './modal';
-import { useState } from 'react';
 import Header from './header';
 
 const Blog = () => {
-    const [modalIndex, setmodalIndex] = useState(false);
-
     const blogPosts = [
         {
             id: 1,
@@ -35,7 +31,6 @@ const Blog = () => {
             image: logonewchares,
         },
     ];
-
     const latestPosts = blogPosts
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 3);
@@ -51,7 +46,6 @@ const Blog = () => {
                             key={ post.id }
                             className="bg-black rounded-lg overflow-hidden shadow-md transform transition duration-300 hover:scale-105"
                             style={ { minWidth: "320px", maxWidth: "360px", height: "500px" } }
-                            onClick={ () => setmodalIndex(!modalIndex) }
                         >
                             <img
                                 src={ post.image }
@@ -83,10 +77,6 @@ const Blog = () => {
                         </div>
                     )) }
                 </div>
-
-                {
-                    modalIndex ? <ModalComponents data={ modalIndex } /> : null
-                }
             </div>
         </>
     );

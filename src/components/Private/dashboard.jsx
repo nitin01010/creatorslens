@@ -169,7 +169,7 @@ const Dashboard = () => {
                 <div className='flex  border-b-2 border-[#2c2b2b] rounded-t-lg justify-between items-center px-2 md:px-10 py-4 text-white '>
                     <div className=' flex gap-16'>
                         <b>
-                            <h1 className=' text-xl font-bold' onClick={ () => navigate('/dashboard') }> CreatorsLens.com</h1>
+                            <h1 className=' text-xl font-bold' onClick={ () => navigate('/dashboard') }> creatorslens.in</h1>
                         </b>
                         <ul className=' font-semibold text-lg hidden lg:flex gap-6'>
                             <li className=' hover:text-white ' onClick={ () => navigate('/dashboard') }>Dashborad</li>
